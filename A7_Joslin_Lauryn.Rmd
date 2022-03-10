@@ -1,5 +1,5 @@
 ---
-title: "A6_Joslin_Lauryn"
+title: "A7_Joslin_Lauryn"
 author: "Lauryn Joslin"
 date: "09/03/2022"
 output:
@@ -11,14 +11,14 @@ output:
 
 ##March 9th 2022
 
-
+github laurynjoslin https://github.com/laurynjoslin/A7_Joslin_Lauryn 
 
 
 Coding the dragons, was manually added to original nexus 
 
 **Dragon 1** , From Disney's Hercules - Menken, Alan. Disney's Hercules. [United States] : Milwaukee, WI :Wonderland Music Co. and Walt Disney Music Co. ; Distributed by H. Leonard, 1997. :1HerculesX
 
-![]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon1.jpeg")
+![]("/Users/LaurynJoslin/Dropbox/A7_Joslin_Lauryn/images/dragon1.jpeg")
 
 1101 1111 01 ???? 011000 000 001 1 110 ? ? ?????? 110000 000001 1000 00 0001 ? ?????? ? ?? 1 00 00 ???
 
@@ -51,7 +51,7 @@ wing type ???
 
 **Dragon 2** - from BBC Merlin TV series 2008-2012: 2MerlinXXX
 
-![dragon 2 2MerlinXXX]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon2.jpeg")
+![dragon 2 2MerlinXXX]("/Users/LaurynJoslin/Dropbox/A7_Joslin_Lauryn/images/dragon2.jpeg")
 
 1001 1111 00 0011 011000 000 100 0 000 1 1 000000 100000 100000 1100 10 1100 0 100000 ? ?? 0 00 11 100
 
@@ -83,7 +83,7 @@ wing type 100
 
 **Dragon 3** - From the cover of the book "The Dragons of Wayward Crescent: Gruffen" by Chris D'Lacy 2009: 3WaywardXX
 
-![dragon 3 3WaywardXX]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon3.jpeg")
+![dragon 3 3WaywardXX]("/Users/LaurynJoslin/Dropbox/A7_Joslin_Lauryn/images/dragon3.jpeg")
 
 1001 ???? 00 0010 010000 010 000 0 000 1 1 000000 000000 000001 1110 01 ???? 0 111000 ? ?? 1 00 11 100 
 
@@ -121,7 +121,7 @@ library(ggtree)
 ```
 
 ```{r}
-DragonNex <- read.nexus.data("/Users/temp/Dropbox/A7_Joslin_Lauryn/input/DragonMatrix.nex")
+DragonNex <- read.nexus.data("/Users/LaurynJoslin/Dropbox/A7_Joslin_Lauryn/input/DragonMatrix.nex")
 ```
 
 ```{r}
