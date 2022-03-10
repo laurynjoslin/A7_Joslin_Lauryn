@@ -1,0 +1,206 @@
+---
+title: "A6_Joslin_Lauryn"
+author: "Lauryn Joslin"
+date: "09/03/2022"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+#Dragon Phylogeny : Assignment 7
+
+##March 9th 2022
+
+
+
+
+Coding the dragons, was manually added to original nexus 
+
+**Dragon 1** , From Disney's Hercules - Menken, Alan. Disney's Hercules. [United States] : Milwaukee, WI :Wonderland Music Co. and Walt Disney Music Co. ; Distributed by H. Leonard, 1997. :1HerculesX
+
+![]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon1.jpeg")
+
+1101 1111 01 ???? 011000 000 001 1 110 ? ? ?????? 110000 000001 1000 00 0001 ? ?????? ? ?? 1 00 00 ???
+
+
+appendages 2 1101
+mass >4x human 1111
+body type elongate 01
+claw type unknown ????
+Dorsal ridges spike 011000
+Ear absent 000
+eye large 001
+eye position forward 1
+horn long 110
+nose position ?
+nose morhology ?
+skin dorsal ??????
+skin head smooth 110000
+skin ventral plates 000001
+snout blunt 1000
+tail split 00
+teeth fangs + other 0001
+toes ?
+Toe num ??????
+tongue length ?
+tongue morph ??
+ventral plates y 1
+whiskers 00
+wing struct 00
+wing type ???
+
+**Dragon 2** - from BBC Merlin TV series 2008-2012: 2MerlinXXX
+
+![dragon 2 2MerlinXXX]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon2.jpeg")
+
+1001 1111 00 0011 011000 000 100 0 000 1 1 000000 100000 100000 1100 10 1100 0 100000 ? ?? 0 00 11 100
+
+appendages 4 1001
+mass >4x human 1111
+body type  00
+claw type  0011
+Dorsal ridges spike 011000
+Ear absent 000
+eye large 100
+eye position 0
+horn 000
+nose position 1
+nose morhology 1
+skin dorsal 000000
+skin head 100000
+skin ventral 100000
+snout  1100
+tail 10
+teeth 1100
+toes 0
+Toe num 100000
+tongue length ?
+tongue morph ??
+ventral plates 0
+whiskers 00
+wing struct 11
+wing type 100
+
+**Dragon 3** - From the cover of the book "The Dragons of Wayward Crescent: Gruffen" by Chris D'Lacy 2009: 3WaywardXX
+
+![dragon 3 3WaywardXX]("/Users/temp/Dropbox/A7_Joslin_Lauryn/images/dragon3.jpeg")
+
+1001 ???? 00 0010 010000 010 000 0 000 1 1 000000 000000 000001 1110 01 ???? 0 111000 ? ?? 1 00 11 100 
+
+appendages 4 1001
+mass ????
+body type  00
+claw type  0010
+Dorsal ridges spike 010000
+Ear 010
+eye 000
+eye position 0
+horn 000
+nose position 1
+nose morhology 1
+skin dorsal 000000
+skin head 000000
+skin ventral 000001
+snout  1110
+tail 01 
+teeth ???? 
+toes 0
+Toe num 111000
+tongue length ?
+tongue morph ??
+ventral plates 1 
+whiskers 00
+wing struct 11
+wing type 100
+
+```{r}
+library(ape)
+library(ggplot2)
+library(reshape2)
+library(ggtree)
+```
+
+```{r}
+DragonNex <- read.nexus.data("/Users/temp/Dropbox/A7_Joslin_Lauryn/input/DragonMatrix.nex")
+```
+
+```{r}
+Dragondf <- data.frame(matrix(unlist(DragonNex), ncol = 78, byrow = T))
+```
+
+```{r}
+row.names(Dragondf) <- names(DragonNex)
+```
+
+```{r}
+Dragondist <- dist(Dragondf, method = 'binary')
+```
+
+```{r}
+Dragondistmatrix <- as.matrix(Dragondist)
+```
+
+```{r}
+WeightsDat<-read.csv("https://colauttilab.github.io/Data/Weights.csv")
+```
+
+```{r}
+Weights<-paste0(WeightsDat$Weight,collapse="")
+Weights<-strsplit(Weights,split="")[[1]]
+```
+
+```{r}
+WeightsNum<-rep(NA,length(Weights))
+for(i in 1:length(WeightsNum)){
+  if(Weights[i] %in% LETTERS){
+    WeightsNum[i]<-which(LETTERS==Weights[i])+9
+  } else {
+    WeightsNum[i]<-Weights[i]
+  }
+}
+WeightsNum<-as.numeric(WeightsNum)
+```
+
+```{r}
+WtDragonNex<-DragonNex 
+for (i in 1:length(DragonNex)){
+  RepWeight<-DragonNex[[i]]==1
+  WtDragonNex[[i]][RepWeight]<-WeightsNum[RepWeight]
+  RepWeight<-NA
+}
+```
+
+```{r}
+WtDragonNexDF<-data.frame(matrix(unlist(WtDragonNex),ncol=78,byrow=T))
+row.names(WtDragonNexDF)<-names(WtDragonNex)
+WtDragonDist<-dist(WtDragonNexDF,method='euclidean')
+```
+
+```{r}
+WtDragonDistMat<-as.matrix(WtDragonDist)
+```
+
+## Dragon Phylogeny
+
+Updated with the 3 new dragons I added, coloured red
+
+```{r}
+WtDragonTree<-fastme.bal(WtDragonDist)
+new<-groupClade(WtDragonTree,.node=c(96))
+ggtree(new, layout = "circular", aes(colour = group), ignore.negative.edge = TRUE) +
+  geom_tiplab(aes(angle=angle),  size =2)+
+  scale_color_manual(labels = c("original", "new"), values = c("#000000","#e85d04"))+
+geom_cladelabel(node=96,label="My New Additions", offset = 30,vjust = -0.5, hjust=0.5,offset.text=4,fontsize=5,angle=96, )+
+   labs(colour = " ")
+```
+
+
+
+
+
+
+
+
+
+
+
